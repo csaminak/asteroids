@@ -4,6 +4,11 @@
     var shipElem = document.getElementById('ship');
 
     // Create your "ship" object and any other variables you might need...
+    var ship = {
+        shipElem: document.getElementById('ship'),
+        velocity: 10,
+        angle: 0,
+    };
 
 
     var allAsteroids = [];
@@ -29,10 +34,24 @@
      */
     function handleKeys(event) {
         console.log(event.keyCode);
-
-        // Implement me!
-
+        if (event.keyCode === 38) {
+            ship.velocity = ship.velocity + 10;
+        } else if (event.keyCode === 40) {
+            ship.velocity = ship.velocity - 10;
+            if (ship.velocity < 0 ) {
+                ship.velocity = 0;
+            }
+        } else if (event.keyCode === 39) {
+            ship.angle = ship.angle + 5;
+            ship.shipElem.style.transform = 'rotate(' + ship.angle + 'deg)';
+        } else if (event.keyCode === 37) {
+            ship.angle = ship.angle - 5;
+            ship.shipElem.style.transform = 'rotate(' + ship.angle + 'deg)';
+        }
+        console.log(ship.velocity);
+        console.log(ship.angle);
     }
+
     document.querySelector('body').addEventListener('keyup', handleKeys);
 
     /**
@@ -48,7 +67,7 @@
         // NOTE: you will need to change these arguments to match your ship object!
         // What does this function return? What will be in the `move` variable?
         // Read the documentation!
-        var move = getShipMovement(shipsCurrentVelocity, shipsCurrentAngle);
+        var move = getShipMovement(ship.velocity, ship.angle);
 
 
         // Move the ship here!
