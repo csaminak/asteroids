@@ -35,9 +35,9 @@
     function handleKeys(event) {
         console.log(event.keyCode);
         if (event.keyCode === 38) {
-            ship.velocity = ship.velocity + 10;
+            ship.velocity = ship.velocity + 5;
         } else if (event.keyCode === 40) {
-            ship.velocity = ship.velocity - 10;
+            ship.velocity = ship.velocity - 5;
             if (ship.velocity < 0 ) {
                 ship.velocity = 0;
             }
