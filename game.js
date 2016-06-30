@@ -42,10 +42,10 @@
                 ship.velocity = 0;
             }
         } else if (event.keyCode === 39) {
-            ship.angle = ship.angle + 5;
+            ship.angle = ship.angle + 10;
             ship.shipElem.style.transform = 'rotate(' + ship.angle + 'deg)';
         } else if (event.keyCode === 37) {
-            ship.angle = ship.angle - 5;
+            ship.angle = ship.angle - 10;
             ship.shipElem.style.transform = 'rotate(' + ship.angle + 'deg)';
         }
         console.log(ship.velocity);
@@ -73,15 +73,12 @@
         if (ship.shipElem.style.top.length === 0) {
             ship.shipElem.style.top = '0px';
         }
-        ship.shipElem.style.top = (ParseInt(ship.shipElem.style.top, 20) - move.top) + 'px';
-        
+        ship.shipElem.style.top = (parseInt(ship.shipElem.style.top, 10) - move.top) + 'px';
+        if (ship.shipElem.style.left.length === 0) {
+            ship.shipElem.style.left = '0px';
+        }
+        ship.shipElem.style.left = (parseInt(ship.shipElem.style.left, 10) + move.left) + 'px';
 
-
-            // ParseInt(ship.shipElem.style.left, 20);
-
-
-
-        // Move the ship here!
 
 
         // Time to check for any collisions (see below)...
