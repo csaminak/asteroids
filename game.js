@@ -6,7 +6,7 @@
     // Create your "ship" object and any other variables you might need...
     var ship = {
         shipElem: document.getElementById('ship'),
-        velocity: 10,
+        velocity: 0,
         angle: 0,
     };
 
@@ -52,6 +52,7 @@
         console.log(ship.angle);
     }
 
+
     document.querySelector('body').addEventListener('keyup', handleKeys);
 
     /**
@@ -68,6 +69,16 @@
         // What does this function return? What will be in the `move` variable?
         // Read the documentation!
         var move = getShipMovement(ship.velocity, ship.angle);
+
+        if (ship.shipElem.style.top.length === 0) {
+            ship.shipElem.style.top = '0px';
+        }
+        ship.shipElem.style.top = (ParseInt(ship.shipElem.style.top, 20) - move.top) + 'px';
+        
+
+
+            // ParseInt(ship.shipElem.style.left, 20);
+
 
 
         // Move the ship here!
