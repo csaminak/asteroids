@@ -9,6 +9,13 @@
         velocity: 0,
         angle: 0,
     };
+    console.log(ship.shipElem.getBoundingClientRect());
+
+    var shipBox = ship.shipElem.getBoundingClientRect();
+    var shipBoxTopHeight = shipBox.top + shipBox.height;
+    var shipBoxBottomHeight = shipBox.bottom + shipBox.height;
+    var shipBoxLeftWidth = shipBox.left + shipBox.width;
+    var shipBoxRightWidth = shipBox.right + shipBox.width;
 
 
     var allAsteroids = [];
@@ -17,10 +24,10 @@
         // The new asteroid's HTML element will be in:  event.detail
         allAsteroids.push(event.detail);
         console.log(allAsteroids.indexOf(event.detail));
+        var asteroidBox = event.detail.getBoundingClientRect();
+        console.log(asteroidBox);
 
     });
-
-    var asteroidPosition = allAsteroids.indexOf(event.detail);
 
     /**
      * Use this function to handle when a key is pressed. Which key? Use the
@@ -81,15 +88,9 @@
         }
         ship.shipElem.style.left = (parseInt(ship.shipElem.style.left, 10) + move.left) + 'px';
 
-
-
         // Time to check for any collisions (see below)...
-        checkForCollisions(ship.shipElem, allAsteroids.event.detail);
-            if (ship.shipElem !== allAsteroids.event.detail) {
-                //keep playing
-            } else if (ship.shipElem === allAsteroids.event.detail) {
-                //which asteroid was hit?
-            }
+        checkForCollisions();
+
     }
 
     /**
@@ -107,11 +108,15 @@
      * @return void
      */
     function checkForCollisions() {
-
-        // if (crash detected) {
-        //     return /* crash(asteroidHit); */
-        // }
-
+        if ((shipBox.top <= asteroidTop <= shipBoxTopHeight) && (shipBox.left <= asteroidLeft <= shipBoxLeftWidth)) {
+            crash(someAsteroidElement);
+        } else if ((shipBox.top <= asteroidTop <= shipBoxTopHeight) && (shipBox.right <= asteroidRight <= shipBoxRightWidth)) {
+            crash(someAsteroidElement);
+        } else if ((shipBox.bottom <= asteroidBottom <= shipBoxBottomHeight) && (shipBox.left <= asteroidLeft <= shipBoxLeftWidth)) {
+            crash(someAsteroidElement);
+        } else if ((shipBox.bottom <= asteroidBottom <= shipBoxBottomHeight) && (shipBox.right <= asteroidRight <= shipBoxRightWidth)) {
+            crash(someAsteroidElement);
+        }
     }
 
 
