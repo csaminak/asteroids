@@ -11,22 +11,12 @@
     };
     console.log(ship.shipElem.getBoundingClientRect());
 
-    var shipBox = ship.shipElem.getBoundingClientRect();
-    var shipBoxTopHeight = shipBox.top + shipBox.height;
-    var shipBoxBottomHeight = shipBox.bottom + shipBox.height;
-    var shipBoxLeftWidth = shipBox.left + shipBox.width;
-    var shipBoxRightWidth = shipBox.right + shipBox.width;
-
 
     var allAsteroids = [];
     shipElem.addEventListener('asteroidDetected', function (event) {
         // You can detect when a new asteroid appears with this event.
         // The new asteroid's HTML element will be in:  event.detail
         allAsteroids.push(event.detail);
-        console.log(allAsteroids.indexOf(event.detail));
-        var asteroidBox = event.detail.getBoundingClientRect();
-        console.log(asteroidBox);
-
     });
 
     /**
@@ -108,14 +98,30 @@
      * @return void
      */
     function checkForCollisions() {
-        if ((shipBox.top <= asteroidTop <= shipBoxTopHeight) && (shipBox.left <= asteroidLeft <= shipBoxLeftWidth)) {
-            crash(someAsteroidElement);
-        } else if ((shipBox.top <= asteroidTop <= shipBoxTopHeight) && (shipBox.right <= asteroidRight <= shipBoxRightWidth)) {
-            crash(someAsteroidElement);
-        } else if ((shipBox.bottom <= asteroidBottom <= shipBoxBottomHeight) && (shipBox.left <= asteroidLeft <= shipBoxLeftWidth)) {
-            crash(someAsteroidElement);
-        } else if ((shipBox.bottom <= asteroidBottom <= shipBoxBottomHeight) && (shipBox.right <= asteroidRight <= shipBoxRightWidth)) {
-            crash(someAsteroidElement);
+        // console.log('check');
+        var shipBox = ship.shipElem.getBoundingClientRect();
+        var shipBoxTopHeight = shipBox.top + shipBox.height;
+        var shipBoxBottomHeight = shipBox.bottom + shipBox.height;
+        var shipBoxLeftWidth = shipBox.left + shipBox.width;
+        var shipBoxRightWidth = shipBox.right + shipBox.width;
+        var asteroidBox, i;
+
+        // console.log(shipBoxTopHeight);
+
+        for (i=0; i<allAsteroids.length; i++) {
+
+            asteroidBox = allAsteroids[i].getBoundingClientRect();
+
+            if (((asteroidBox.top >= shipBox.top) && (asteroidBox.top <= shipBoxTopHeight)) &&
+                ((asteroidBox.left >= shipBox.left) && (asteroidBox.left <= shipBoxLeftWidth))) {
+                crash(allAsteroids[i]);
+            } else if (((asteroidBox.top >= shipBox.top) && (asteroidBox.top <= shipBoxTopHeight)) && ((asteroidBox.right >= shipBox.right) && (asteroidBox.right <= shipBoxRightWidth))) {
+                crash(allAsteroids[i]);
+            } else if (((asteroidBox.bottom >= shipBox.bottom) && (asteroidBox.bottom <= shipBoxBottomHeight)) && ((asteroidBox.left >= shipBox.left) && (asteroidBox.left <= shipBoxLeftWidth))) {
+                crash(allAsteroids[i]);
+            } else if (((asteroidBox.bottom >= shipBox.bottom) && (asteroidBox.bottom <= shipBoxBottomHeight)) && ((asteroidBox.right >= shipBox.right) && (asteroidBox.right <= shipBoxRightWidth))) {
+                crash(allAsteroids[i]);
+            }
         }
     }
 
@@ -128,7 +134,7 @@
     document.querySelector('main').addEventListener('crash', function () {
         console.log('A crash occurred!');
 
-        // What might you need/want to do in here?
+        ship.velocity = 0;
 
     });
 
