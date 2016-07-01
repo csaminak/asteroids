@@ -15,10 +15,12 @@
     shipElem.addEventListener('asteroidDetected', function (event) {
         // You can detect when a new asteroid appears with this event.
         // The new asteroid's HTML element will be in:  event.detail
-
-        // What might you need/want to do in here?
+        allAsteroids.push(event.detail);
+        console.log(allAsteroids.indexOf(event.detail));
 
     });
+
+    var asteroidPosition = allAsteroids.indexOf(event.detail);
 
     /**
      * Use this function to handle when a key is pressed. Which key? Use the
@@ -82,7 +84,12 @@
 
 
         // Time to check for any collisions (see below)...
-        checkForCollisions();
+        checkForCollisions(ship.shipElem, allAsteroids.event.detail);
+            if (ship.shipElem !== allAsteroids.event.detail) {
+                //keep playing
+            } else if (ship.shipElem === allAsteroids.event.detail) {
+                //which asteroid was hit?
+            }
     }
 
     /**
@@ -101,7 +108,9 @@
      */
     function checkForCollisions() {
 
-        // Implement me!
+        // if (crash detected) {
+        //     return /* crash(asteroidHit); */
+        // }
 
     }
 
